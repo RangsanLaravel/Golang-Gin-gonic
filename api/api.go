@@ -5,6 +5,6 @@ func Setup(router *gin.Engine) {
 
 	//db.SetupDB()
 	SetupAuthenAPI(router)
-	//SetupProductAPI(router)
-	//SetupTransactionAPI(router)
+	SetupProductAPI(router)
+	SetupTransactionAPI(router)
 }
