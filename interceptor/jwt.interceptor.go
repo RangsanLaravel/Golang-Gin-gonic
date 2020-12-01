@@ -42,12 +42,16 @@ func JwtVerify(c *gin.Context) {
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		fmt.Println(claims)	
-		// staffID := fmt.Sprintf("%v", claims["id"])
-		// username := fmt.Sprintf("%v", claims["jwt_username"])
-		// level := fmt.Sprintf("%v", claims["jwt_level"])
-		//c.Set("jwt_staff_id", staffID)
-		c.Set("jwt_username", claims["username"])
-		c.Set("jwt_level", claims["level"])
+		fmt.Printf("jwt_username= %v\n",claims["jwt_username"])
+		fmt.Printf( "username= %s\n",claims["username"])
+		fmt.Printf( "level= %s\n",claims["level"])
+		fmt.Printf( "jwt_level= %s\n",claims["jwt_level"])
+		 staffID := fmt.Sprintf("%v", claims["id"])
+		 username := fmt.Sprintf("%v", claims["jwt_username"])
+		 level := fmt.Sprintf("%v", claims["jwt_level"])
+		c.Set("jwt_staff_id", staffID)
+		c.Set("jwt_username", username)
+		c.Set("jwt_level", level)
 		c.Next()
 	} else {
 		fmt.Println(ok)	

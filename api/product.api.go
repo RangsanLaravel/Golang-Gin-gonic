@@ -16,17 +16,35 @@ import (
 )
 
 // SetupProductAPI - call this method to setup product route group
-func SetupTransactionAPI(router *gin.Engine) {
+func SetupProductAPI(router *gin.Engine) {
 	productAPI:= router.Group("/api/v2")
 	{
-		productAPI.GET("/product" ,/*interceptor.GeneralInterceptor1*/interceptor.JwtVerify, getProduct)
-		productAPI.POST("/product" ,/*interceptor.JwtVerify,*/ createProduct)
+		productAPI.GET("/product" ,/*interceptor.GeneralInterceptor1 interceptor.JwtVerify,*/ getProduct)
+		productAPI.GET("/product/:id" ,/*interceptor.GeneralInterceptor1 interceptor.JwtVerify,*/ getProductByID)
+		productAPI.POST("/product" ,interceptor.JwtVerify, createProduct)
 		productAPI.PUT("/product" ,/*interceptor.JwtVerify,*/ editProduct)
 	}
 }
+func getProductByID(c *gin.Context)  {
+	var product model.Product
+	db.GetDB().Where("id=?",c.Param("id")).First(&product);
+	c.JSON(http.StatusOK,product)
+}
+/*func getProduct(c *gin.Context)  {
+		var product []model.Product
+		db.GetDB().Find(&product)
+		c.JSON(http.StatusOK,product)
+}*/
 func getProduct(c *gin.Context)  {
-	c.JSON(200,gin.H{"result":"getProduct","username":c.GetString("jwt_username"),"Level":c.GetString("jwt_level")})
-	//c.JSON(200,gin.H{"result":"getProduct"})
+	var product []model.Product
+	keyword := c.Query("keyword")
+	if keyword !=""{
+		keyword =fmt.Sprintf("%%%s%%",keyword)
+		db.GetDB().Where("name like ?",keyword).Order("created_at DESC").Find(&product)
+	}else{
+		db.GetDB().Find(&product)
+	}
+	c.JSON(http.StatusOK,product)
 }
 func editProduct(c *gin.Context) {
 	var product model.Product
@@ -41,7 +59,7 @@ func editProduct(c *gin.Context) {
 
 	image, _ := c.FormFile("image")
 	saveImage(image, &product, c)
-	c.JSON(http.StatusOK, gin.H{"result": product})
+	c.JSON(http.StatusNoContent, gin.H{"result": product})
 }
 
 func createProduct(c *gin.Context)  {
@@ -53,7 +71,7 @@ func createProduct(c *gin.Context)  {
 	image,_:=c.FormFile("image")
 	 db.GetDB().Create(&product)
 	 saveImage(image, &product, c)
-	 c.JSON(http.StatusOK, gin.H{"result": product})
+	 c.JSON(http.StatusCreated, gin.H{"result": product})
 	//c.JSON(200,gin.H{"result":"getProduct"})
 }
 func fileExists(filename string) bool {

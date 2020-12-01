@@ -10,7 +10,7 @@ import (
 )
 
 
-func SetupProductAPI(router *gin.Engine) {
+func SetupAuthenAPI(router *gin.Engine) {
 	authenAPI:= router.Group("/api/v2")
 	{
 		authenAPI.POST("/login",login)

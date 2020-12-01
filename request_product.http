@@ -1,17 +1,23 @@
 ### getProduct Get 
 GET  http://localhost:8080/api/v2/product HTTP/1.1
+
+### getProduct Get BY ID
+GET  http://localhost:8080/api/v2/product/6 HTTP/1.1
+
+### getProduct Get BY KEYWORD
+GET  http://localhost:8080/api/v2/product?keyword=Arduino HTTP/1.1
 ### getProduct Get with token
 GET  http://localhost:8080/api/v2/product HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDY0MTE3MTAsImlkIjoxLCJsZXZlbCI6Im5vcm1hbCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.lCImo7zdqD8-IP0XAg6D7IA_eJp03eb_vNGFQ-oQVw8
 ### createProduct Post
 POST http://localhost:8080/api/v2/product HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDY3NTQ0ODgsImlkIjoxLCJsZXZlbCI6Im5vcm1hbCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.hyMGreiBJiecjahXyiSegZDs6EOel1KaA_p6W55dqv0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MDY4MzgyNjAsImlkIjoxLCJsZXZlbCI6Im5vcm1hbCIsInVzZXJuYW1lIjoiYWRtaW4ifQ.AEOvMHWRiQl9imCw8cw4wAu-XYuKibAcnHpJ6KSTULg
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name";
 
-Angular 
+Redis 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="stock";
 
@@ -53,3 +59,4 @@ Content-Type: image/png
 
 < ./test2.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
