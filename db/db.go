@@ -2,7 +2,7 @@ package db
 
 import (
 	"main/model"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -17,16 +17,16 @@ func GetDB() *gorm.DB {
 func SetupDB() {
 
 	// sqlite "gorm.io/driver/sqlite"
-	database, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
+	//database, err := gorm.Open(sqlite.Open("database.db"), &gorm.Config{})
 
 	// mysql "gorm.io/driver/mysql"
 	// dsn := "root:@tcp(127.0.0.1:3306)/cmgostock?charset=utf8mb4&parseTime=True&loc=Local"
 	// database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	// postgresql 	"gorm.io/driver/postgres"
-	// dsn := "user=postgres password=12341234 dbname=cmgostock port=5432 sslmode=disable TimeZone=Asia/Bangkok"
-	// database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-
+	dsn := "host=10.82.69.121 user=postgres password=1234 dbname=cmgostock port=5432 sslmode=disable TimeZone=Asia/Bangkok"
+	//dsn := "host=localhost user=postgres password=1234 dbname=cmgostock port=5432 sslmode=disable TimeZone=Asia/Bangkok"
+	 database, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
